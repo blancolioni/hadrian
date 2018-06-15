@@ -1,0 +1,12 @@
+project_name = Hadrian
+source_dir = src
+source_dir = src/config
+source_dir = src/driver
+source_dir = src/parser
+source_dir = src/tests
+depend = { project = wlib version = any }
+main_unit = hadrian-driver
+exec_name = hadrian-self-test
+config_dir = config
+path_unit = { unit = Hadrian.Paths path = src/driver/hadrian-paths.ads }
+post_install = hadrian-self-test
