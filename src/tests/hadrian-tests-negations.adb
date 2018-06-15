@@ -24,6 +24,17 @@ package body Hadrian.Tests.Negations is
                   Repeat (not (Literal ("cat")) & Any_Text_Word) & "dog",
               Sentence => "bird mouse horse dog",
               Image    => "bird-mouse-horse-dog"));
+      Suite.Append
+        (Category => "negations",
+         Name     => "not a number of things",
+         Test     =>
+           New_Simple_Syntax_Test
+             (Parser   =>
+                  Repeat
+                    (not (Literal ("a") or Literal ("is") or Literal ("and"))
+                  & Any_Text_Word),
+              Sentence => "bird mouse horse dog",
+              Image    => "bird-mouse-horse-dog"));
    end Add_Tests;
 
 end Hadrian.Tests.Negations;
