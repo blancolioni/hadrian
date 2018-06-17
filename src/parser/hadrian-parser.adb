@@ -813,6 +813,50 @@ package body Hadrian.Parser is
         (Cursor (Start), Scan_Tree'Access);
    end Scan_Named_Subtrees;
 
+   -------------------------
+   -- Scan_Named_Subtrees --
+   -------------------------
+
+   procedure Scan_Named_Subtrees
+     (Start   : Parse_Subtree;
+      Name    : String;
+      Process : not null access
+        procedure (Subtree      : Parse_Subtree))
+   is
+      use Parse_Trees;
+
+      procedure Scan_Tree (Tree : Cursor);
+
+      ---------------
+      -- Scan_Tree --
+      ---------------
+
+      procedure Scan_Tree (Tree : Cursor) is
+         Parser    : constant Parser_Trees.Cursor :=
+                       Element (Tree).Syntax;
+         Node_Name : constant String :=
+                       Ada.Strings.Unbounded.To_String
+                         (Parser_Trees.Element (Parser).Name);
+      begin
+         if Node_Name /= "" then
+            if Node_Name = Name then
+               Process (Parse_Subtree (Tree));
+            end if;
+         else
+            Parse_Trees.Iterate_Children (Tree, Scan_Tree'Access);
+         end if;
+      end Scan_Tree;
+
+   begin
+
+      if Cursor (Start) = No_Element then
+         return;
+      end if;
+
+      Parse_Trees.Iterate_Children
+        (Cursor (Start), Scan_Tree'Access);
+   end Scan_Named_Subtrees;
+
    -------------------
    -- To_Identifier --
    -------------------

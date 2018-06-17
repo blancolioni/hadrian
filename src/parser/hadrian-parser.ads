@@ -106,6 +106,12 @@ package Hadrian.Parser is
       Process : not null access
         procedure (Subtree      : Parse_Subtree));
 
+   procedure Scan_Named_Subtrees
+     (Start   : Parse_Subtree;
+      Name    : String;
+      Process : not null access
+        procedure (Subtree      : Parse_Subtree));
+
    procedure Scan_Leaves
      (Start   : Parse_Subtree;
       Process : not null access
