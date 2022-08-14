@@ -10,9 +10,9 @@ package body Hadrian.Parser.Sequences is
       Parses   : out Partial_Parse_List)
    is
 
-      package Partial_Parse_List_Lists is
-        new Ada.Containers.Doubly_Linked_Lists
-          (Partial_Parse_List);
+      --  package Partial_Parse_List_Lists is
+      --    new Ada.Containers.Doubly_Linked_Lists
+      --      (Partial_Parse_List);
 
       Acc : Partial_Parse_List;
 

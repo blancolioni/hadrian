@@ -24,8 +24,8 @@ package Hadrian.Parser is
                      renames "+";
 
    function Any_Text_Word return Parser_Type;
---     function Any_Upper_Case_Word return Parser_Type;
---     function Any_Lower_Case_Word return Parser_Type;
+   function Any_Upper_Case_Word return Parser_Type;
+   function Any_Lower_Case_Word return Parser_Type;
    function Any_String return Parser_Type;
 
    type Terminal_Match_Function is access
@@ -241,6 +241,16 @@ private
       return Boolean
    is (for all Ch of S => Ada.Characters.Handling.Is_Alphanumeric (Ch));
 
+   function Is_Upper_Case_Text
+     (S : String)
+      return Boolean
+   is (for all Ch of S => Ada.Characters.Handling.Is_Upper (Ch));
+
+   function Is_Lower_Case_Text
+     (S : String)
+      return Boolean
+   is (for all Ch of S => Ada.Characters.Handling.Is_Lower (Ch));
+
    function Is_String_Word
      (S : String)
       return Boolean
@@ -257,12 +267,12 @@ private
       return Boolean
    is (not Parse_Trees.Has_Element (Parse_Trees.Cursor (Tree)));
 
-   --     function Any_Upper_Case_Word return Parser_Type
---     is (Match_Terminal (Ada.Characters.Handling.Is_Upper'Access));
---
---     function Any_Lower_Case_Word return Parser_Type
---     is (Match_Terminal (Ada.Characters.Handling.Is_Lower'Access));
---
+   function Any_Upper_Case_Word return Parser_Type
+   is (Match_Terminal (Is_Upper_Case_Text'Access));
+
+   function Any_Lower_Case_Word return Parser_Type
+   is (Match_Terminal (Is_Lower_Case_Text'Access));
+
    function "&" (Left : Parser_Type; Right : String) return Parser_Type
    is (Left & Literal (Right));
 
