@@ -1,6 +1,0 @@
-syntax: glob
-build/bin/*
-build/obj/*
-hadrian.gpr
-src/driver/hadrian-paths.ads
-trace.txt
